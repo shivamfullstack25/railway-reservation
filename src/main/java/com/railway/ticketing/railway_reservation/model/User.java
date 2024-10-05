@@ -1,32 +1,58 @@
 package com.railway.ticketing.railway_reservation.model;
 
-import java.util.Set;
+import java.util.Collection;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Table;
 
 @Entity
-@Getter
-@Setter
-public class User {
+@Table(name = "app_user")
+public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true, nullable = false)
-    private String userName;
-
-    @Column(nullable = false)
+    private String username;
     private String password;
+    // other fields
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Booking> bookings;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // return the authorities/roles of the user
+        return null;
+    }
 
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    // getters and setters for other fields
 }

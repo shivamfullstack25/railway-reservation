@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.railway.ticketing.railway_reservation.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUserName(String username);
+    Optional<User> findByUsername(String username);
 }
